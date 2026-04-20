@@ -1,0 +1,47 @@
+@model SeuProjeto.Models.Produto
+
+@{
+    ViewData["Title"] = "Excluir produto";
+}
+
+<h2>Excluir produto</h2>
+
+@if (TempData["ErroExclusao"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErroExclusao"]
+    </div>
+}
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Tem certeza que deseja excluir este produto?</h5>
+
+        <dl class="row mt-4">
+            <dt class="col-sm-3">Id</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.Nome</dd>
+
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">@Model.Descricao</dd>
+
+            <dt class="col-sm-3">Estoque</dt>
+            <dd class="col-sm-9">@Model.Estoque</dd>
+
+            <dt class="col-sm-3">Preço</dt>
+            <dd class="col-sm-9">@Model.Preco.ToString("C")</dd>
+        </dl>
+
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@* Exemplo de botão/link para lista de produtos (copiar para Index.cshtml):
+   <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Excluir</a>
+*@
