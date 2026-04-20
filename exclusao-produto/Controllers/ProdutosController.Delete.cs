@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SeuProjeto.Data;          // Ajuste para o namespace do seu DbContext
-using SeuProjeto.Models;        // Ajuste para o namespace do model Produto
+using SeuProjeto.Data;          
+using SeuProjeto.Models;        
 
 namespace SeuProjeto.Controllers
 {
-    /// <summary>
-    /// Trecho focado APENAS na exclusão de Produto.
-    /// Integre este código no seu ProdutosController existente.
-    /// </summary>
     public partial class ProdutosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,11 +15,6 @@ namespace SeuProjeto.Controllers
             _context = context;
             _logger = logger;
         }
-
-        /// <summary>
-        /// GET: /Produtos/Delete/{id}
-        /// Exibe tela de confirmação de exclusão.
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -40,8 +31,6 @@ namespace SeuProjeto.Controllers
             {
                 return NotFound("Produto não encontrado.");
             }
-
-            // Validação de regra de negócio antes da confirmação.
             if (!PodeExcluirProduto(produto, out var motivoBloqueio))
             {
                 TempData["ErroExclusao"] = motivoBloqueio;
@@ -50,11 +39,6 @@ namespace SeuProjeto.Controllers
 
             return View(produto);
         }
-
-        /// <summary>
-        /// POST: /Produtos/Delete/{id}
-        /// Confirma e executa exclusão.
-        /// </summary>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -68,7 +52,6 @@ namespace SeuProjeto.Controllers
 
             if (produto == null)
             {
-                // Evita erro caso já tenha sido removido por outro usuário/processo.
                 TempData["Sucesso"] = "Produto já estava removido.";
                 return RedirectToAction(nameof(Index));
             }
@@ -89,7 +72,6 @@ namespace SeuProjeto.Controllers
             }
             catch (DbUpdateException dbEx)
             {
-                // Ex.: FK impedindo exclusão (produto vinculado em pedido/item).
                 _logger.LogError(dbEx, "Erro de banco ao excluir produto Id={ProdutoId}", id);
                 TempData["ErroExclusao"] = "Não foi possível excluir o produto porque ele possui vínculos no banco de dados.";
                 return RedirectToAction(nameof(Index));
@@ -101,14 +83,8 @@ namespace SeuProjeto.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
-        /// <summary>
-        /// Regra de negócio mínima para permitir exclusão.
-        /// Personalize conforme o projeto principal.
-        /// </summary>
         private static bool PodeExcluirProduto(Produto produto, out string motivoBloqueio)
         {
-            // Exemplo de regra: não excluir produto com estoque positivo.
             if (produto.Estoque > 0)
             {
                 motivoBloqueio = "Não é permitido excluir produto com estoque maior que zero.";
