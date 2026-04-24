@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Carrinho</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 48px 56px;
+    }
+
+    .cart-layout {
+      display: flex;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cart-items {
+      flex: 1.4;
+    }
+
+    .cart-items h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      margin-bottom: 32px;
+    }
+
+    .item-card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 260px;
+      margin-bottom: 20px;
+    }
+
+    .item-placeholder {
+      width: 140px;
+      height: 200px;
+      background-color: #2a2a2a;
+      border-radius: 6px;
+    }
+
+    .cart-summary {
+      flex: 0.8;
+      padding-top: 68px;
+    }
+
+    .summary-box h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .summary-label {
+      color: #b3b3b3;
+      font-size: 15px;
+    }
+
+    .summary-value {
+      color: #ffffff;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .summary-divider {
+      border: none;
+      border-top: 1px solid #404040;
+      margin: 24px 0;
+    }
+
+    .btn-checkout {
+      display: block;
+      width: 100%;
+      padding: 16px 0;
+      background-color: #00a9ff;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-checkout:hover {
+      background-color: #008fdb;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 28px 20px; }
+
+      .cart-layout {
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      .cart-summary {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cart-layout">
+
+    <section class="cart-items">
+      <h1>Meu carrinho</h1>
+
+      <div class="item-card">
+        <div class="item-placeholder"></div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-placeholder"></div>
+      </div>
+    </section>
+
+    <aside class="cart-summary">
+      <div class="summary-box">
+        <h2>Resumo</h2>
+
+        <div class="summary-row">
+          <span class="summary-label">Preço</span>
+          <span class="summary-value">R$ 0,00</span>
+        </div>
+
+        <div class="summary-row">
+          <span class="summary-label">Impostos</span>
+          <span class="summary-value">Calculado ao finalizar</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <button class="btn-checkout" type="button">Finalizar compra</button>
+      </div>
+    </aside>
+
+  </div>
+
+</body>
+</html>
